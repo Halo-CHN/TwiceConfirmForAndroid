@@ -9,12 +9,13 @@ import android.content.Context;
 import android.widget.Toast;
 
 /**
+ * 
  *
  * @description 点击两次返回退出程序
  *
  * @author Halo-CHN
  *
- * @mail chn_halo@163.com
+ * @mail halo-chn@outlook.com
  *
  * @date 2015年6月3日
  *
@@ -39,11 +40,14 @@ public class TwiceConfirmExitUtil {
 		return instance;
 	}
 
-	/* 程序确认退出时间间隔 */
+	/* 此处设置程序确认退出时间间隔 */
 	private final int FINALSECOND = 3;// 单位：秒
 
 	private int time = 0;
 
+	/**
+	 * 计数器
+	 */
 	Timer timer = new Timer();
 
 	Toast toast = null;
@@ -56,16 +60,19 @@ public class TwiceConfirmExitUtil {
 	 *            当前应用中已经打开的Activity
 	 */
 	public void showToast(Context context, List<? extends Activity> activities) {
-		if (time == 0) {
+		if (time == 0) {//计数为0，重新开始计时
 			toast = Toast.makeText(context, "再按一次返回将退出程序", FINALSECOND * 1000);
 			toast.show();
 			timeGos();
-		} else {
+		} else {//计数为0，说明在限定时间内在此按了返回键，退出程序
 			timer = null;
 			toast.cancel();
-			for (Activity ac : activities) {
-				if (null != ac)
-					ac.finish();
+			// finish掉所有已经打开的Activity
+			if (null != activities && activities.size() > 0) {
+				for (Activity ac : activities) {
+					if (null != ac)
+						ac.finish();
+				}
 			}
 			System.exit(0);
 		}
