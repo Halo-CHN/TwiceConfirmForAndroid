@@ -64,7 +64,7 @@ public class TwiceConfirmExitUtil {
 			toast = Toast.makeText(context, "再按一次返回将退出程序", FINALSECOND * 1000);
 			toast.show();
 			timeGos();
-		} else {//计数为0，说明在限定时间内在此按了返回键，退出程序
+		} else {//计数不为0，说明在限定时间内在此按了返回键，退出程序
 			timer = null;
 			toast.cancel();
 			// finish掉所有已经打开的Activity
